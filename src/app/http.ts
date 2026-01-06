@@ -6,9 +6,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
-  private baseUrl = 'http://localhost:3000';
-   googleLogin(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/auth/google`);
+  constructor() {}
+   private readonly TOKEN_KEY = 'auth_token';
+
+  setToken(token: string): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
   }
 }

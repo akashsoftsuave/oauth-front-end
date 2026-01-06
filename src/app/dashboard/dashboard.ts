@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpService } from '../http';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
+  constructor(private httpService: HttpService) {}
 
+  logout() {
+    this.httpService.logout();
+    window.location.href = '/login';
+  }
 }
